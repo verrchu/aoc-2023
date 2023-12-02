@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+clap = { version = "4.4.10", features = ["derive"] }
 regex = "1.10.2"
 
 [[bin]]
@@ -13,3 +14,11 @@ path = "bin/01/p1.rs"
 [[bin]]
 name = "01-p2"
 path = "bin/01/p2.rs"
+
+[[bin]]
+name = "02-p1"
+path = "bin/02/p1.rs"
+
+[[bin]]
+name = "02-p2"
+path = "bin/02/p2.rs"
