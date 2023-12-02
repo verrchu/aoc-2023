@@ -7,10 +7,13 @@ fn main() {
     let result = INPUT
         .lines()
         .map(|line| {
-            let digits = || line.chars().filter(|c| char::is_digit(*c, 10));
+            let mut digits = line
+                .chars()
+                .filter(|c| char::is_digit(*c, 10))
+                .map(|c| c.to_digit(10).unwrap());
 
-            let a = digits().next().unwrap().to_digit(10).unwrap();
-            let b = digits().next_back().unwrap().to_digit(10).unwrap();
+            let a = digits.next().unwrap();
+            let b = digits.next_back().unwrap_or(a);
 
             a * 10 + b
         })

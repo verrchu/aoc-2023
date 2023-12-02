@@ -14,6 +14,7 @@ fn main() {
     static EIGHT: &str = "eight";
     static NINE: &str = "nine";
 
+    // regex which matches a digit from 1 to 9 or a word repr of such digit
     let digit_re = {
         let words = [ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE];
 
@@ -37,13 +38,17 @@ fn main() {
     let result = INPUT
         .lines()
         .map(|line| {
+            // find our first digit
             let m = digit_re.find(line).unwrap();
 
             let a = m.as_str();
             let mut b = a;
 
+            // we could simply use `Regex::find_iter` to find all the matches
+            // and take the last one but it produces a list of _non-overlapping_
+            // matches which we don't want. therefore we are looking for
+            // overlapping matches by shifting offset by 1 after finding a match
             let mut offset = m.start() + 1;
-
             while offset < line.len() {
                 if let Some(m) = digit_re.find_at(line, offset) {
                     b = m.as_str();
