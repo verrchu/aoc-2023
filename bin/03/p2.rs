@@ -24,7 +24,7 @@ fn main() {
 
         if is_digit(r, c) {
             let mut lc = c as isize;
-            while lc - 1 >= 0 && is_digit(r, (lc - 1) as usize) {
+            while lc > 0 && is_digit(r, (lc - 1) as usize) {
                 lc -= 1;
             }
 
@@ -56,14 +56,14 @@ fn main() {
             let r = r as isize;
             let c = c as isize;
 
-            extract_number(schema, r - 1, c - 1).map(|n| numbers.push(n));
-            extract_number(schema, r - 1, c).map(|n| numbers.push(n));
-            extract_number(schema, r - 1, c + 1).map(|n| numbers.push(n));
-            extract_number(schema, r, c - 1).map(|n| numbers.push(n));
-            extract_number(schema, r, c + 1).map(|n| numbers.push(n));
-            extract_number(schema, r + 1, c - 1).map(|n| numbers.push(n));
-            extract_number(schema, r + 1, c).map(|n| numbers.push(n));
-            extract_number(schema, r + 1, c + 1).map(|n| numbers.push(n));
+            if let Some(n) = extract_number(schema, r - 1, c - 1) { numbers.push(n) }
+            if let Some(n) = extract_number(schema, r - 1, c) { numbers.push(n) }
+            if let Some(n) = extract_number(schema, r - 1, c + 1) { numbers.push(n) }
+            if let Some(n) = extract_number(schema, r, c - 1) { numbers.push(n) }
+            if let Some(n) = extract_number(schema, r, c + 1) { numbers.push(n) }
+            if let Some(n) = extract_number(schema, r + 1, c - 1) { numbers.push(n) }
+            if let Some(n) = extract_number(schema, r + 1, c) { numbers.push(n) }
+            if let Some(n) = extract_number(schema, r + 1, c + 1) { numbers.push(n) }
 
             numbers
         };
