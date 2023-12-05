@@ -56,14 +56,30 @@ fn main() {
             let r = r as isize;
             let c = c as isize;
 
-            if let Some(n) = extract_number(schema, r - 1, c - 1) { numbers.push(n) }
-            if let Some(n) = extract_number(schema, r - 1, c) { numbers.push(n) }
-            if let Some(n) = extract_number(schema, r - 1, c + 1) { numbers.push(n) }
-            if let Some(n) = extract_number(schema, r, c - 1) { numbers.push(n) }
-            if let Some(n) = extract_number(schema, r, c + 1) { numbers.push(n) }
-            if let Some(n) = extract_number(schema, r + 1, c - 1) { numbers.push(n) }
-            if let Some(n) = extract_number(schema, r + 1, c) { numbers.push(n) }
-            if let Some(n) = extract_number(schema, r + 1, c + 1) { numbers.push(n) }
+            if let Some(n) = extract_number(schema, r - 1, c - 1) {
+                numbers.push(n)
+            }
+            if let Some(n) = extract_number(schema, r - 1, c) {
+                numbers.push(n)
+            }
+            if let Some(n) = extract_number(schema, r - 1, c + 1) {
+                numbers.push(n)
+            }
+            if let Some(n) = extract_number(schema, r, c - 1) {
+                numbers.push(n)
+            }
+            if let Some(n) = extract_number(schema, r, c + 1) {
+                numbers.push(n)
+            }
+            if let Some(n) = extract_number(schema, r + 1, c - 1) {
+                numbers.push(n)
+            }
+            if let Some(n) = extract_number(schema, r + 1, c) {
+                numbers.push(n)
+            }
+            if let Some(n) = extract_number(schema, r + 1, c + 1) {
+                numbers.push(n)
+            }
 
             numbers
         };
