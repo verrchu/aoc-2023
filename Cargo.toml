@@ -51,3 +51,11 @@ path = "bin/05/p2.rs"
 [[bin]]
 name = "06-p1"
 path = "bin/06/p1.rs"
+
+[[bin]]
+name = "07-p1"
+path = "bin/07/p1.rs"
+
+[[bin]]
+name = "07-p2"
+path = "bin/07/p2.rs"
