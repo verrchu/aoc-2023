@@ -20,7 +20,7 @@ fn main() {
     let mut result = 1;
     for (t, d) in measures {
         // d = x(t - x)
-        let discriminant = (t.pow(2) - 4 * -1 * -(d + 1)) as f64;
+        let discriminant = (t.pow(2) - 4 * (-1 * -(d + 1))) as f64;
 
         let root1 = (-t as f64 + discriminant.sqrt()) / -2.0;
         let root2 = (-t as f64 - discriminant.sqrt()) / -2.0;

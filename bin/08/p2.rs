@@ -28,12 +28,12 @@ fn solution(input: &str) -> usize {
         nodes.insert(s(node), (s(node_l), s(node_r)));
     }
 
-    let start_nodes = nodes.keys().filter(|n| n.ends_with("A"));
+    let start_nodes = nodes.keys().filter(|n| n.ends_with('A'));
 
     let steps_to_end_node = |node: &str| {
         let mut node = node;
         for (i, s) in directions.chars().cycle().enumerate() {
-            if node.ends_with("Z") {
+            if node.ends_with('Z') {
                 return i;
             }
 
@@ -63,7 +63,7 @@ fn solution(input: &str) -> usize {
 
     start_nodes
         .map(|node| steps_to_end_node(node))
-        .reduce(|a, b| lcm(a, b))
+        .reduce(lcm)
         .unwrap()
 }
 

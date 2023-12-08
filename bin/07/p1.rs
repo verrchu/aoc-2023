@@ -32,7 +32,7 @@ enum Combination {
 
 impl Combination {
     fn from_hand(cards: &[Rank]) -> Self {
-        let counts = cards.into_iter().counts();
+        let counts = cards.iter().counts();
         let mut counts = counts.values().sorted().rev();
 
         match counts.next().unwrap() {

@@ -32,7 +32,7 @@ enum Combination {
 
 impl Combination {
     fn from_hand(cards: &[Rank]) -> Self {
-        let groups = cards.into_iter().counts();
+        let groups = cards.iter().counts();
         let mut counts = groups
             .iter()
             .sorted_by(|(r1, c1), (r2, c2)| c1.cmp(c2).then_with(|| r1.cmp(r2)))
