@@ -1,3 +1,7 @@
+use std::collections::HashMap;
+use std::iter;
+
+use itertools::Itertools;
 use tracing::{debug, debug_span};
 
 static INPUT: &str = include_str!("./input");
@@ -15,20 +19,27 @@ fn solution(input: &str) -> usize {
         let _span = tracing::info_span!("line", n = i).entered();
 
         let (springs, arrangement) = line.split_once(' ').unwrap();
+        let springs = iter::repeat(springs).take(5).join("?");
         let springs = springs.chars().collect::<Vec<char>>();
+        let arrangement = iter::repeat(arrangement).take(5).join(",");
         let arrangement = arrangement
             .split(',')
             .map(|n| n.parse::<usize>().unwrap())
             .collect::<Vec<_>>();
 
         let occupy = springs.iter().filter(|c| **c == '#').count();
-        result += f(&springs, &arrangement, occupy);
+        result += f(&springs, &arrangement, occupy, &mut HashMap::new());
     }
 
     result
 }
 
-fn f(springs: &[char], arrangement: &[usize], occupy: usize) -> usize {
+fn f<'a, 'b>(
+    springs: &'a [char],
+    arrangement: &'b [usize],
+    occupy: usize,
+    memo: &mut HashMap<(&'a [char], &'b [usize], usize), usize>,
+) -> usize {
     let _span = debug_span!("arr", v = debug(arrangement)).entered();
 
     debug!("springs: {springs:?}");
@@ -66,7 +77,21 @@ fn f(springs: &[char], arrangement: &[usize], occupy: usize) -> usize {
             match springs.get(i + *h) {
                 Some('.' | '?') => {
                     let next = &springs[(i + *h + 1)..];
-                    let next_count = f(next, t, occupy);
+
+                    let next_count = match memo.get(&(next, t, occupy)) {
+                        Some(count) => *count,
+                        None => {
+                            let next_count = f(next, t, occupy, memo);
+
+                            memo.insert((next, t, occupy), next_count);
+                            next_count
+                        }
+                    };
+                    // let next = &springs[(i + *h + 1)..];
+
+                    // let next_count = f(next, t, occupy, memo);
+
+                    debug!("{next:?} {t:?} -> {next_count}");
 
                     result += next_count;
                 }
@@ -95,12 +120,7 @@ mod tests {
 
     use test_case::test_case;
 
-    #[test_case(include_str!("./example"), 21; "main")]
-    #[test_case(include_str!("./example-1"), 1; "1")]
-    #[test_case(include_str!("./example-2"), 4; "2")]
-    #[test_case(include_str!("./example-3"), 10; "3")]
-    #[test_case(include_str!("./example-4"), 2; "4")]
-    #[test_case(include_str!("./example-5"), 15; "5")]
+    #[test_case(include_str!("./example"), 525152; "main")]
     fn example(input: &str, value: usize) {
         assert_eq!(solution(input), value);
     }

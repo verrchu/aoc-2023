@@ -105,3 +105,7 @@ path = "bin/11/p2.rs"
 [[bin]]
 name = "12-p1"
 path = "bin/12/p1.rs"
+
+[[bin]]
+name = "12-p2"
+path = "bin/12/p2.rs"
