@@ -65,9 +65,9 @@ fn solution(input: &str) -> usize {
 fn read_patterns(input: &str) -> Vec<Pattern> {
     let mut patterns = vec![];
 
-    let mut lines = input.lines();
+    let lines = input.lines();
     let mut buf = None;
-    while let Some(line) = lines.next() {
+    for line in lines {
         if line.is_empty() {
             patterns.push(buf.take().unwrap());
             continue;

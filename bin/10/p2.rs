@@ -61,9 +61,9 @@ fn solution(input: &str) -> usize {
 }
 
 fn trace_loop(grid: &Vec<Vec<char>>) -> HashSet<(usize, usize)> {
-    let start = find_start(&grid);
+    let start = find_start(grid);
 
-    let (mut pos, mut dir) = find_connection(&grid, start);
+    let (mut pos, mut dir) = find_connection(grid, start);
 
     let mut trace = HashSet::new();
     loop {

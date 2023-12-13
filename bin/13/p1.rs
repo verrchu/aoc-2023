@@ -7,9 +7,9 @@ fn main() {
 fn solution(input: &str) -> usize {
     let mut patterns = vec![];
 
-    let mut lines = input.lines();
+    let lines = input.lines();
     let mut buf = None;
-    while let Some(line) = lines.next() {
+    for line in lines {
         if line.is_empty() {
             patterns.push(buf.take().unwrap());
             continue;
@@ -53,13 +53,7 @@ fn find_h(p: &Vec<Vec<char>>) -> Option<usize> {
 
     let sym_col = |c: usize, i: usize| (0..i).rev().zip(i..nrow).all(|(a, b)| p[a][c] == p[b][c]);
 
-    for i in 1..nrow {
-        if sym_col(0, i) && (1..ncol).all(|c| sym_col(c, i)) {
-            return Some(i);
-        }
-    }
-
-    None
+    (1..nrow).find(|&i| sym_col(0, i) && (1..ncol).all(|c| sym_col(c, i)))
 }
 
 fn find_v(p: &Vec<Vec<char>>) -> Option<usize> {
@@ -74,13 +68,7 @@ fn find_v(p: &Vec<Vec<char>>) -> Option<usize> {
     let (h, t) = p.split_first().unwrap();
     let ncol = h.len();
 
-    for i in 1..ncol {
-        if sym_row(h, i) && t.iter().all(|r| sym_row(r, i)) {
-            return Some(i);
-        }
-    }
-
-    None
+    (1..ncol).find(|&i| sym_row(h, i) && t.iter().all(|r| sym_row(r, i)))
 }
 
 #[cfg(test)]
