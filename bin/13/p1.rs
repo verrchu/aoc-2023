@@ -1,6 +1,4 @@
 static INPUT: &str = include_str!("./input");
-// static INPUT: &str = include_str!("./example-1");
-// static INPUT: &str = include_str!("./example-vertical");
 
 fn main() {
     println!("result: {}", solution(INPUT));
@@ -29,7 +27,7 @@ fn solution(input: &str) -> usize {
     }
 
     let mut result = 0;
-    for (i, pattern) in patterns.into_iter().enumerate() {
+    for (_i, pattern) in patterns.into_iter().enumerate() {
         let pattern = pattern
             .into_iter()
             .map(|line| line.chars().collect::<Vec<_>>())
