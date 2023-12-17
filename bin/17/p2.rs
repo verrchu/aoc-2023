@@ -114,12 +114,11 @@ fn solution(input: &str) -> usize {
         }
     }
 
-    dp[nrow - 1][ncol - 1]
+    *dp[nrow - 1][ncol - 1]
         .iter()
         .filter_map(|((_dir, con), val)| (*con > 3).then_some(val))
         .min()
         .unwrap()
-        .clone()
 }
 
 #[cfg(test)]

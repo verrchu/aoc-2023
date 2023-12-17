@@ -112,7 +112,7 @@ fn solution(input: &str) -> usize {
         }
     }
 
-    dp[nrow - 1][ncol - 1].values().min().unwrap().clone()
+    *dp[nrow - 1][ncol - 1].values().min().unwrap()
 }
 
 #[cfg(test)]
