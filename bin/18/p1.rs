@@ -1,8 +1,6 @@
-#![allow(unused)]
-
 use std::{
     cmp::{max, min},
-    collections::{HashMap, HashSet},
+    collections::HashSet,
     str::FromStr,
 };
 
@@ -45,12 +43,6 @@ impl FromStr for Direction {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 enum PathSegment {
-    // H(Color),
-    // V(Color),
-    // NW(Color, Color),
-    // NE(Color, Color),
-    // SW(Color, Color),
-    // SE(Color, Color),
     H,
     V,
     NW,
@@ -79,13 +71,6 @@ fn solution(input: &str) -> usize {
 
         let dir = line.next().unwrap().parse::<Direction>().unwrap();
         let steps = line.next().unwrap().parse::<isize>().unwrap();
-        let color = line.next().unwrap();
-
-        let _color = Color {
-            r: u8::from_str_radix(&color[2..=3], 16).unwrap(),
-            g: u8::from_str_radix(&color[4..=5], 16).unwrap(),
-            b: u8::from_str_radix(&color[6..=7], 16).unwrap(),
-        };
 
         match dir {
             N => {
@@ -120,7 +105,6 @@ fn solution(input: &str) -> usize {
                 (W, S) | (N, E) => SE,
                 (N, W) | (E, S) => SW,
                 (W, N) | (S, E) => NE,
-                // (N, E) | (E, N) => NE,
                 _ => unreachable!(),
             };
 
@@ -131,7 +115,7 @@ fn solution(input: &str) -> usize {
     // hack: this works only for my input
     path.last_mut().unwrap().2 = SW;
 
-    let mut edge = path
+    let edge = path
         .iter()
         .map(|(r, c, _s)| (*r, *c))
         .collect::<HashSet<_>>();
@@ -145,7 +129,7 @@ fn solution(input: &str) -> usize {
 
             let ps = path
                 .iter()
-                .filter(|(rs, cs, ps)| (r == *rs && c < *cs))
+                .filter(|(rs, cs, _ps)| (r == *rs && c < *cs))
                 .sorted_by_key(|(_r, c, _s)| c)
                 .map(|(_r, _c, s)| s);
 
@@ -191,7 +175,7 @@ fn solution(input: &str) -> usize {
                         None => {
                             turn = Some(NE);
                         }
-                        t => unreachable!(),
+                        _ => unreachable!(),
                     },
                 }
             }

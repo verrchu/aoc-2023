@@ -1,13 +1,4 @@
-#![allow(unused)]
-
-use std::{
-    cmp::{max, min},
-    collections::{HashMap, HashSet},
-    str::FromStr,
-    time::Instant,
-};
-
-use itertools::Itertools;
+use std::cmp::{max, min};
 
 static INPUT: &str = include_str!("./input");
 
@@ -48,8 +39,6 @@ enum PathSegment {
 fn solution(input: &str) -> usize {
     use Direction::*;
     use PathSegment::*;
-
-    let start = Instant::now();
 
     let mut r = 0;
     let mut c = 0;
@@ -140,9 +129,7 @@ fn solution(input: &str) -> usize {
         Wide(isize, isize),
     }
 
-    for (i, row) in rows.into_iter().enumerate() {
-        let mut c = minc;
-
+    for row in rows {
         let mut seps = vec![];
         let mut holes = vec![];
 
@@ -197,7 +184,7 @@ fn solution(input: &str) -> usize {
 
                 for (hl, hr) in holes.iter() {
                     if *hl > l && *hr < r {
-                        range -= (hr - hl + 1);
+                        range -= hr - hl + 1;
                     }
                 }
 
